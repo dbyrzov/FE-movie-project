@@ -1,0 +1,51 @@
+<div id="login-button">
+    <img src="https://dqcgrsy5v35b9.cloudfront.net/cruiseplanner/assets/img/icons/login-w-icon.png" (click)="showLoginForm()">
+    
+</div>
+<div id="container">
+    <h1>Log In</h1>
+    <span class="close-btn" (click)="closeBtn()">
+      <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png">
+    </span>
+  
+    <form>
+      <input id="email" type="email" name="email" placeholder="E-mail">
+      <input id="password" type="password" name="pass" placeholder="Password">
+      <a (click)="login()">Log in</a>
+      <div id="remember-container">
+        <input type="checkbox" id="checkbox-2-1" class="checkbox" checked="checked"/>
+        <span id="remember">Remember me</span>
+        <span id="forgotten" (click)="forgottenPass()">Forgotten password</span>
+        
+      </div>
+      <div id="signup" (click)="showSignupForm()">Don't have an account? <strong>Sign up</strong></div>
+    </form>
+ </div>
+  
+  <!-- Forgotten Password Container -->
+  <div id="forgotten-container">
+     <h1>Forgotten</h1>
+     <span id="close" class="close-btn" (click)="closeBtn()">
+      <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png">
+    </span>
+  
+    <form>
+      <input type="email" name="email" placeholder="E-mail">
+      <a href="#" class="orange-btn">Get new password</a>
+  </form>
+  </div>
+
+  <!-- Sign Up Container -->
+  <div id="signup-container">
+      <h1>Sign up</h1>
+      <span id="close" class="close-btn" onclick="closeSignUpBtn()">
+       <img src="https://cdn4.iconfinder.com/data/icons/miu/22/circle_close_delete_-128.png">
+     </span>
+   
+     <form>
+       <input type="email" name="email" placeholder="E-mail">
+       <input type="password" name="password" placeholder="Password">
+       <input type="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+       <a href="#" class="orange-btn">Sign up</a>
+   </form>
+   </div>

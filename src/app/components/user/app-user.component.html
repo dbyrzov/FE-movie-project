@@ -1,0 +1,95 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container1" style="padding: 3% 0 0 0; margin: 2em; margin: auto; width: 70%;">
+    <div class="row border">
+        <span class="test1" style="margin: 1em 2em; display: inline-block; width: 30%;">
+            <div class="row" style="width: 100%; padding: 1em;">
+                <img src="https://thumbs.dreamstime.com/b/%C3%ADcone-do-perfil-do-placeholder-do-defeito-90197993.jpg" 
+                     style="width: 100%; height: 100%; box-shadow: 5px 10px #888888; border-radius: 20em;">
+            </div>
+            <div class="row border" style="width: 100%;">
+                <h2 class="hover-text cursor-pointer" style="text-align: center; transition: all .2s ease-in-out;"> Username </h2>
+            </div>
+            <div class="row border" style="width: 100%; text-align: center;">
+                <span class="rate">
+                    <input type="radio" id="star1" name="rate" value="1" />
+                    <label class="hover-text" for="star1" title="text">1 star</label>
+                    <input type="radio" id="star2" name="rate" value="2" />
+                    <label class="hover-text" for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star3" name="rate" value="3" />
+                    <label class="hover-text" for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star4" name="rate" value="4" />
+                    <label class="hover-text" for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star5" name="rate" value="5" />
+                    <label class="hover-text" for="star5" title="text">5 stars</label>
+                </span>
+            </div>
+            <div class="row border" style="width: 100%;">
+                <h3 class="hover-text cursor-pointer" style="text-align: center; "> Settings </h3>
+            </div>
+        </span>
+        <span class="test2" style="display: inline-block;">
+
+            <ng-container *ngFor="let event of events">
+                    <span class="btn btn-primary" style="margin: 1em; min-width: 150px; min-height: 60px; border: 1px solid blue; border-radius: 2em; text-align: center;">
+                        <div>
+                            <h4>{{ event.name }}</h4>
+                        </div>
+                        <div>
+                            {{ event.date }}
+                        </div>
+                    </span>
+            </ng-container>
+        </span>
+    </div>
+
+    <div class="row border">
+        <div class="col-12">
+            <div class="" style="width: 30%; padding: 0em 2em;">
+                <h2 style="text-align: left; "> Movies: </h2>
+            </div>
+            <div class="container card-container">
+                <ng-container *ngFor="let movie of userMovies">
+                    <div class="card" (mouseenter)="mouseEnter($event.target, $event.target.children[2].children[1], movie.rating)" 
+                                    (mouseleave)="mouseLeave($event.target.children[2].children[1])"
+                                    (click)="selectMovie(movie.title)" routerLink="/home/films/movie">
+                        <ng-template [ngIf]="render" [ngIfElse]="noRender">
+                            <div class="deleteMovie" (click)="deleteMovie(movie.title)"></div>
+                        </ng-template>
+                        <ng-template #noRender><div></div></ng-template>
+                        <h3 class="title">{{ movie.title }}</h3>
+                        <div class="bar">
+                            <div class="emptybar"></div>
+                            <div class="filledbar"></div>
+                        </div>
+                        <div class="poster">
+                            <img [src]="movie.image">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS POPUP -->
+    <div id="newPass">
+        <div style="text-align: center;">
+            <label for="old"> Old password </label><br>
+            <input type="text" id="old"><br>
+            <label for="new"> New password </label><br>
+            <input type="text" id="new"><br>
+            <label for="new2"> New password </label><br>
+            <input type="text" id="new2"><br>
+        </div>
+
+
+        <div style="margin: 4px; padding: 4px; text-align: center;">
+          <span class="exButtons" (click)="onOkPropChoice()">OK</span>
+          <span class="exButtons" (click)="onClosePropChoice()">CLOSE</span>
+        </div>
+    </div>
+</div>
+
+

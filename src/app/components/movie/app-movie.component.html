@@ -1,0 +1,119 @@
+<section id="movie-review">
+           
+    <div class="movie-video">
+        <img class="images" src="{{ movie.poster }}" alt="" style="height: 100%;">
+    </div>
+     <div class="movie-info">
+        <p>{{ movie.categorie }}</p>
+        <h3>{{ movie.title }}</h3>
+        <p class="p-text">{{ movie.description }}</p>
+
+        <div class="wrapper">
+            <span class="bold-p">Year: </span> <span class="normal-p">{{ movie.dateOfCreation }}</span>
+        </div>
+        <div class="wrapper">
+            <span class="bold-p">Director: </span> <span class="normal-p">{{movie.director}}</span>
+        </div>
+        <!-- <div class="wrapper">
+            <span class="bold-p">Writers: </span> <span class="normal-p">Bruse Wayne,Jhon Snow</span>
+        </div> -->
+        <div class="wrapper">
+            <span class="bold-p">Starring: </span> <span class="normal-p">{{ movie.actors }}</span>
+        </div>
+        <div class="wrapper">
+            <span class="bold-p">Duration: </span> <span class="normal-p">{{ movie.duration }}</span>
+        </div>
+
+        <!-- STARS -->
+        <div class="rating">
+            <div>★</div>
+            <div>★</div>
+            <div>★</div>
+            <div>★</div>
+            <div>★</div>
+        </div>
+
+        <div class="tooltip" style="margin: 2em;"> 
+            <i class="fa fa-heart" style="font-size: x-large;" (click)="addToWishList($event)"></i> 
+            <span class="tooltiptext"> Add to WishList </span>
+        </div>
+
+        <div> Watched by: <br>
+            {{ usersWatched }}
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div >
+{{movie.title}}
+</div>
+
+<div id="header_container">
+    <h2>CINEMANIA</h2>
+    <h1>Presents</h1>
+    <div class="clearfloat"></div>
+</div>
+
+<div >
+    <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/K_MWrdBYAgU" frameborder="0" 
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+    
+</div>
+<div>
+    <img src="{{ movie.image }}" alt="" />
+</div>
+<div>
+
+</div>
+
+
+<div id="header">
+    <h1>CINEMANIA PRESENTS</h1>
+  </div>
+  <div >
+    <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/K_MWrdBYAgU" frameborder="0" 
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+  </div>
+  <div>
+    <img width="560" height="315" src="https://image.tmdb.org/t/p/w500_and_h282_face/5HjzYTihkH7EvOWSE7KcsF6pBMM.jpg" alt="" />
+  </div>
+  <div>
+      <li>ROMANCE</li>
+      <li><a>Title</a></li>
+      <li><a>Resume:</a></li>
+  </div> -->

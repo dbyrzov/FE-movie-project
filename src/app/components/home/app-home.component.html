@@ -1,0 +1,37 @@
+<main id="main">
+    <div id="header_container">
+      <h1 style="display: inline;">CINEMANIA</h1>
+      <h2 style="display: inline;">PRESENTS</h2>
+    </div>
+    <section id="play-button">
+      <article id="moving-article">
+        <div class="slideshow-container">
+
+          <ng-template [ngIf]="lastThMovies.length > 0" [ngIfElse]="noLastThMovies">
+            <ng-container>
+              <div #allTheseThings *ngFor="let movie of lastThMovies;">
+                <div class="mySlides fade">
+                    <img width="420" height="345" src="{{ movie.poster }}">
+                  <div class="text">{{ movie.title }}</div>
+                </div>
+              </div>
+            </ng-container>
+
+            <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+            <a class="next" (click)="plusSlides(1)">&#10095;</a>
+            <div class="dot-container">
+              <span class="dot" (click)="currentSlide(0)"></span>
+              <span class="dot" (click)="currentSlide(1)"></span>
+              <span class="dot" (click)="currentSlide(2)"></span>
+            </div>
+          </ng-template>
+
+          <ng-template #noLastThMovies>
+            <div class="mySlides fade">
+                <img width="420" height="345" src="https://homestaymatch.com/images/no-image-available.png">
+            </div>
+          </ng-template>
+        </div>
+      </article> 
+    </section>
+</main>
