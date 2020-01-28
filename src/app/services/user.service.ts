@@ -15,18 +15,16 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  login(data: {email: string, pass: string}): Observable<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-      'email': `${data.email}`,
-      'password': `${data.pass}`
-    };
+  login(data): any {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json;charset=UTF-8'
+    });
 
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new HttpHeaders(headers), 
-    };
-
-    return this.http.get(`${BACKEND_URL}/login`, requestOptions);
+    // return this.http.post(`${BACKEND_URL}/login?email=${data.email}&password=${data.pass}`, requestOptions);
+    return this.http.post(`${BACKEND_URL}/login?email=${data.email}&password=${data.pass}`, data, {
+      headers,
+      observe: 'response'
+    });
   }
 
   logout(): Observable<any> {

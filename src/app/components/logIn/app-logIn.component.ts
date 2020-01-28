@@ -16,7 +16,6 @@ import { Movie } from 'src/app/models/Movie';
   styleUrls: ['./app-logIn.component.css']
 })
 export class LogInComponent implements OnInit {
-  body: Array<Body>; 
 
   constructor(
     private user: UserService, 
@@ -39,34 +38,36 @@ export class LogInComponent implements OnInit {
   }
 
   handleLogin(email, pass) {
-    this.user.login({email: email, pass: pass}).subscribe(({ headers }) => {
-      if (headers) {
-        this.body = headers;
-        this.storeLoginData(email, pass);
+    this.user.login({email, pass}).subscribe((res : any) => {
+      const authenticationToken = res.headers.get('Authorization');
+      const userName = res.headers.get('Name');
+      const userId = res.headers.get('User_id');
+      const isAdmin = res.headers.get('Admin');
+      if (authenticationToken) {
+        this.user.isLoggedIn.next(true);
+        sessionStorage.setItem('user.email', email);
+        sessionStorage.setItem('user.pass', pass);
+        sessionStorage.setItem('user.name', userName);
+        sessionStorage.setItem('user.id', userId);
+        sessionStorage.setItem('user.token', authenticationToken);
         this.loadMovieList();
       }
-    }, err => {console.log("No token"); console.log(err); this.router.navigate(['/login']);});
-  }
 
-  storeLoginData(email: string, pass: string) {
-    sessionStorage.setItem('user.email', email);
-    sessionStorage.setItem('user.pass', pass);  
-
-    this.body.filter(element => {
-      if (element.key == 'x-auth-token') {
-        this.user.isLoggedIn.next(true);
-        sessionStorage.setItem('user.token', element.value);
+      if (isAdmin == 'ADMIN') {
+        this.data.ADMIN.next(true);
       }
-    });
+
+    }, (err : any) => {console.log("No token"); console.log(err); this.router.navigate(['/login']);});
   }
+
 
   loadMovieList() {
-    this.service.getAllMovies().subscribe( (res : any) => {
+    this.service.getAllMovies().subscribe( ({body}) => {
       console.log("All-movies");
-      console.log(res);
-      if (res) {
-        this.data.ALLMOVIES.next(res);
-        this.data.lastMovies.next(res.slice(0, 3));
+      console.log(body);
+      if (body) {
+        this.data.ALLMOVIES.next(body);
+        this.data.lastMovies.next(body.slice(0, 3));
 
         this.loadWatchedList();
         this.loadWishList();
@@ -78,10 +79,11 @@ export class LogInComponent implements OnInit {
 
   loadWatchedList() {
     let watchedList = Array<Movie>();
-    this.service.getWatchedMovies().subscribe( (res : any) => {
-      if (res) {
+    this.service.getWatchedMovies().subscribe( ({body}) => {
+      console.log(body);
+      if (body) {
         this.data.ALLMOVIES.value.filter(m => {
-          if(res.includes(m.title)){
+          if(body.includes(m.title)){
             watchedList.push(m);
           } 
         });
@@ -95,10 +97,11 @@ export class LogInComponent implements OnInit {
 
   loadWishList() {
     let wishList = Array<Movie>();
-    this.service.getWishListMovies().subscribe( (res : any) => {
-      if (res) {
+    this.service.getWishListMovies().subscribe( ({body}) => {
+      console.log(body);
+      if (body) {
         this.data.ALLMOVIES.value.filter(m => {
-          if(res.includes(m.title)){
+          if(body.includes(m.title)){
             wishList.push(m);
           } 
         });

@@ -3,6 +3,7 @@ import { Component, OnInit, AfterViewInit, Input, ViewChildren } from '@angular/
 import { Movie } from "../../models/Movie";
 import { Service } from 'src/app/app.services';
 import { DataService } from 'src/app/app-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   @ViewChildren('allTheseThings') things: any;
 
-  constructor(private service: Service, private data: DataService) {}
+  constructor(private service: Service, private data: DataService, private router: Router, 
+    ) {}
 
   ngOnInit() {
     console.log("Mirtko");
@@ -28,9 +30,6 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
-    // this.things.changes.subscribe(t => {
-    //   this.displaySlider();
-    // })
     this.displaySlider();
   }
 
@@ -57,13 +56,18 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
   plusSlides(side: number) {
     this.sliderNum += side;
-    if (this.sliderNum < 0) this.sliderNum = 0;
-    if (this.sliderNum > 2) this.sliderNum = 2;
+    if (this.sliderNum > 2) this.sliderNum = 0;
     this.displaySlider();
   }
 
   currentSlide(slide: number) {
     this.sliderNum = slide;
     this.displaySlider();
+  }
+
+  toMovie() {
+    console.log(this.lastThMovies[this.sliderNum]);
+    this.data.MOVIE.next(this.lastThMovies[this.sliderNum]);
+    this.router.navigate(['/home/movies/movie']);
   }
 }

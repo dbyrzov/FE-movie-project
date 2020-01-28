@@ -20,11 +20,12 @@
     height: 547px;
 }
 #moving-article{
-    background: rgba(255, 255, 255, 0.7);
-    height: 410px;
-    padding: 83px 53px 43px 60px;
+    background: rgba(255, 255, 255, 0.226);
+    height: 70%;
+    top: 60%;
+    padding: 2em 2em 1.7em 2em;
     margin: 0 auto;
-    width: 53%;
+    width: 55%;
     border-radius: 17px;
     text-align: left;
     position: relative;
@@ -152,7 +153,15 @@
 }
 
 .mySlides {
-  left: -100px;
+  left: -50px;
   opacity: 1;
   transition-delay: .3s;
+  position: absolute;
 }
+
+
+
+
+
+
+

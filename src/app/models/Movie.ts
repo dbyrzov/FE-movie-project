@@ -1,3 +1,5 @@
+import { MovieComment } from "./MovieComment";
+
 export interface Movie {
     category: string;
     actors: Array<string>;
@@ -17,4 +19,5 @@ export interface Movie {
     countryOfShooting: string;
     mainActors: Array<string>;
     awards: Array<string>;
+    comments: Array<MovieComment>;
 }

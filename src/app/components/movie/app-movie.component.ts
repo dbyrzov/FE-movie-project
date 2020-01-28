@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+
 import { Movie } from 'src/app/models/Movie';
 import { DataService } from '../../app-data.service';
 import { Service } from 'src/app/app.services';
+import { MovieComment } from 'src/app/models/MovieComment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie',
@@ -14,21 +17,27 @@ import { Service } from 'src/app/app.services';
 export class MovieComponent implements OnInit, AfterViewInit {
   public movie: Movie;
   private stars: any;
+  admin: boolean;
   usersWatched: Array<string>;
+  loggedUserName: string;
   
-  constructor(private data: DataService, private service: Service){}
+  constructor(private data: DataService, private service: Service, private router: Router){}
 
   ngOnInit() {
     this.data.MOVIE.subscribe(res => {
       this.movie = res;
       console.log("mirtki");
+      console.log(this.movie);
     });
 
-    this.service.getWhoWatchTheMovie(this.movie.title).subscribe( (res : any) => {
-      if (res) {
-        this.usersWatched = res;
+    this.service.getWhoWatchTheMovie(this.movie.title).subscribe( ({body}) => {
+      if (body) {
+        this.usersWatched = body;
       }
     }, (err : any) => { console.log(err); });
+
+    this.data.ADMIN.subscribe( res => {console.log(res); this.admin = res; console.log(this.admin)} );
+    this.loggedUserName = sessionStorage.getItem('user.name');
   }
 
   ngAfterViewInit() {
@@ -43,7 +52,7 @@ export class MovieComponent implements OnInit, AfterViewInit {
         this.stars[j].removeAttribute('id');
       }
     }
-    console.log(`Rating for <${this.movie.title}> changed: ${this.movie.rating}`)
+    console.log(`Rating for <${this.movie.title}> changed: ${this.movie.rating}`);
   }
 
   init() {
@@ -90,5 +99,36 @@ export class MovieComponent implements OnInit, AfterViewInit {
     }, (err : any) => { alert("Cannot add to wishlist!"); });
   }
 
+  addMovieComment() {
+    let user = (<HTMLTextAreaElement>document.getElementById('name')).value;
+    let comment = (<HTMLTextAreaElement>document.getElementById('comment')).value;
+    console.log(`User: ${user} comment: ${comment}`);
+    let d = new Date();
+    let day = d.getDate();
+    let month = d.getMonth();
+    let year = d.getFullYear();
+    let curDate = day + '/' + month + '/' + year;
 
+
+    this.service.saveMovieComment(this.movie.title, comment, curDate).subscribe( (res : any) => {
+      let m: Movie;
+      var c: MovieComment = {name: user, comment: comment, date: curDate};
+
+      m = this.movie;
+      m.comments.push(c);
+      this.data.MOVIE.next(m);
+
+      console.log('DONE!');
+    });
+  }
+
+
+  gotoUserProfile(userName: string) {
+      this.service.getUserInfo(userName).subscribe( (res : any) => {
+        if (res) {
+          this.data.USER.next(res);
+          this.router.navigate(['home/user'])
+        }
+      });
+  }
 }

@@ -1,12 +1,21 @@
-<section id="movie-review">
-           
-    <div class="movie-video">
-        <img class="images" src="{{ movie.poster }}" alt="" style="height: 100%;">
-    </div>
-     <div class="movie-info">
-        <p>{{ movie.categorie }}</p>
-        <h3>{{ movie.title }}</h3>
-        <p class="p-text">{{ movie.description }}</p>
+<div id="movie-review">
+    <span style="width: 50%; margin: 0; display: inline-grid;">        
+        <img class="images" src="{{ movie.poster }}" alt="" style="height: 100%; width: auto;">
+
+        <div style="color: white; display: inline-block;"> 
+            <div style="padding: 1em;">Watched by: </div>
+            <span *ngFor="let us of usersWatched;">
+                <span class="chip">
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96">
+                    <span> {{ us }} </span>
+                </span>
+            </span>
+        </div>
+    </span>
+     <span class="movie-info" style="display: inline-grid;">
+        <p style="color: white; margin: 0;">{{ movie.category }}</p>
+        <h3 style="color: white;">{{ movie.title }}</h3>
+        <p style="color: white;" class="p-text">{{ movie.description }}</p>
 
         <div class="wrapper">
             <span class="bold-p">Year: </span> <span class="normal-p">{{ movie.dateOfCreation }}</span>
@@ -38,12 +47,34 @@
             <span class="tooltiptext"> Add to WishList </span>
         </div>
 
-        <div> Watched by: <br>
-            {{ usersWatched }}
-        </div>
 
+
+    </span>
+</div>
+
+<div id="app">
+    <div id="comments">
+        <h1>Comments</h1>
+    <div>
+        <div id="comment-wrapper">
+            <label>
+                <input type="text" name="name" id="name" value="{{ loggedUserName }}" disabled>
+            </label>
+            <label>
+                <textarea name="comment" id="comment" placeholder="Comment"></textarea>
+            </label>
+            <input type="submit" class="button" value="POST" (click)="addMovieComment()" style="outline: 0;">
+        </div>
+        <div id="comments-list" *ngFor="let c of movie.comments;">
+            <ng-template [ngIf]="admin"> mitko e pich</ng-template>
+            <div class="comment">
+                <h4 (click)="gotoUserProfile(c.name)">{{ c.name }}</h4>
+                <p class="timestamp">{{ c.date }}</p>
+                <p>{{ c.comment }}</p>
+            </div>
+        </div>
     </div>
-</section>
+</div>
 
 
 

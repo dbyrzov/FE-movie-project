@@ -22,7 +22,8 @@ export class BackendService {
 
     const httpOptions = new HttpHeaders({
       'Content-Type':  'application/json',
-      'x-auth-token': sessionStorage.getItem('user.token')
+      'Authorization': sessionStorage.getItem('user.token')
+      // 'x-auth-token': sessionStorage.getItem('user.token')
     });
 
     return this.http.post(this.concat_url(url), data, { headers: httpOptions });
@@ -32,10 +33,11 @@ export class BackendService {
 
     const httpOptions = new HttpHeaders({
         'Content-Type':  'application/json',
-        'x-auth-token': sessionStorage.getItem('user.token')
+        'Authorization': sessionStorage.getItem('user.token')
+        // 'x-auth-token': sessionStorage.getItem('user.token')
       });
 
-    return this.http.get(this.concat_url(url), { headers: httpOptions });
+    return this.http.get(this.concat_url(url), { headers: httpOptions, observe: 'response' });
   }
 
 

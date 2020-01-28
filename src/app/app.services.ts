@@ -21,6 +21,10 @@ export class Service {
         return this.backend.get(`/home/movies/movie/watch?title=${title}`);
     }
 
+    getUserInfo(name: string) {
+        return this.backend.get(`/home/user?firstname=${name}`);
+    }
+
     /*******************************************************
      * 
      *     POST REQUESTS GOES HERE
@@ -29,5 +33,10 @@ export class Service {
 
     addMovieToWishedList(title: string) {
         return this.backend.post(`/home/movies/wishList/add`, title);
+    }
+
+    saveMovieComment(title: string, comment: string, date: string) {
+        let bodyString = JSON.stringify({ title: title, comment: comment, date: date });
+        return this.backend.post(`/home/movies/movie/comment/add`, { title: title, comment: comment, date: date });
     }
 }

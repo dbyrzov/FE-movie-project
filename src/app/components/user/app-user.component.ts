@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/models/Movie';
 import { Event } from "../../models/Event";
 import { DataService } from 'src/app/app-data.service';
+import { User } from 'src/app/models/User';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { DataService } from 'src/app/app-data.service';
 })
 export class UserComponent implements OnInit {
     render: boolean = false;
+    user: User;
     userMovies: Movie[] = [
         {
             category: "romance",
@@ -30,7 +32,8 @@ export class UserComponent implements OnInit {
             language: "bg",
             countryOfShooting: "bg",
             mainActors: ["1","2","3","4"],
-            awards: ["a","b","c","d"]
+            awards: ["a","b","c","d"],
+            comments: []
         },
         {
             category: "horror",
@@ -50,7 +53,8 @@ export class UserComponent implements OnInit {
             language: "bg",
             countryOfShooting: "bg",
             mainActors: ["1","2","3","4"],
-            awards: ["a","b","c","d"]
+            awards: ["a","b","c","d"],
+            comments: []
         },
         {
             category: "асс",
@@ -70,7 +74,8 @@ export class UserComponent implements OnInit {
             language: "bg",
             countryOfShooting: "bg",
             mainActors: ["1","2","3","4"],
-            awards: ["a","b","c","d"]
+            awards: ["a","b","c","d"],
+            comments: []
         },
         {
             category: "horror",
@@ -90,7 +95,8 @@ export class UserComponent implements OnInit {
             language: "bg",
             countryOfShooting: "bg",
             mainActors: ["1","2","3","4"],
-            awards: ["a","b","c","d"]
+            awards: ["a","b","c","d"],
+            comments: []
         }
     ];
 
@@ -110,7 +116,7 @@ export class UserComponent implements OnInit {
     constructor(private data: DataService){}
 
     ngOnInit() {
-
+        this.data.USER.subscribe( res => {this.user = res;});
     }
 
     mouseEnter(card: HTMLElement, bar: HTMLElement, rate: number) {

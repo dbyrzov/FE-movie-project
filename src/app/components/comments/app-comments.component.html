@@ -1,1 +1,72 @@
-<div id="app"></div>
+<div class="wrapper">
+	<div class="main_card">
+		<div class="card_left">
+			<div class="card_datails">
+				<h1>{{movie.title}}</h1>
+				<div class="card_cat">
+					<p class="PG">PG - 13</p>
+					<p class="year">{{movie.dateOfCreation}}</p>
+					<p class="genre">{{movie.categorie}}</p>
+					<p class="time">{{movie.duration}}</p>
+				</div>
+				<p class="disc">{{movie.description}}</p>
+				<a href="https://www.imdb.com/title/tt4912910/" target="_blank">Read More</a>
+			<div class="social-btn">
+        <!-- WATCH TRAILER-->
+				<button >  
+					<i class="fas fa-play" ></i> SEE TRAILER
+				</button>
+				<!-- GET-->
+				<button>
+					<i class="fas fa-download"></i> DOWNLOAD
+				</button>
+				<!--USERS RATINGS-->
+				<button>
+					<i class="fas fa-thumbs-up"></i> {{movie.rating}}
+				</button>
+				<!--BOOKMARK-->
+				<button>
+					<i class="fas fa-star"></i>
+				</button>
+			</div>	
+			</div>
+		</div>
+		<div class="card_right">
+			<div class="img_container">
+				<img src="{{ movie.image }}" alt="">
+				</div>
+				<div class="play_btn">
+					<a href="https://www.imdb.com/title/tt4912910/" target="_blank">
+						<i class="fas fa-play-circle"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    <div id="app">
+        <div id="comments">
+            <h1>Comments</h1>
+            <div>
+        <div id="comment-wrapper">
+         <form id="comment-form" action="" method="POST">
+           
+ 
+            <label>
+                <input type="text" name="name" id="name" required placeholder="Name">
+            </label>
+            <label>
+                <textarea name="comment" id="comment" placeholder="Comment"></textarea>
+            </label>
+            <input type="submit" class="button" value="POST">
+            </form>
+            </div>
+            <div id="comments-list">
+                <div class="comment">
+                    <h4>Mihaela</h4>
+                    <p class="timestamp">01/18/20, 05:06 PM</p>
+                    <p>Pravim proekta</p>
+                </div>
+            </div>
+        </div>
+    </div>
